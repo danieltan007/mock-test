@@ -23,3 +23,5 @@ const login = async (req: NextApiRequest, res: NextApiResponse) => {
 		});
 	}
 };
+
+export default login;
