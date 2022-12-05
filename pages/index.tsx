@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
 
-import { login } from "@features/userSlice";
+import { login, listData } from "@features/userSlice";
 import useData from "@features/useData";
 
 export default function Home() {
@@ -13,26 +13,28 @@ export default function Home() {
 	const [id, setId] = useState("");
 	const router = useRouter();
 
-	const isUser = useData();
+	// const isUser = useData();
+	const isUser = useSelector(listData);
 	console.log("🚀 ~ file: index.tsx:17 ~ Home ~ isUser", isUser);
 
 	const login = async (e: any) => {
 		e.preventDefault();
 		try {
-			const login = await fetch("http:localhost/api/login", {
+			const login = await fetch("http://localhost:3000/api/login", {
 				method: "post",
 				body: JSON.stringify(id),
 				redirect: "follow",
 			});
 
 			if (login.status === 200) {
-				dispatch(login());
 				localStorage.setItem("login", id);
+				dispatch(login());
 				router.push("/todo");
 			} else {
 				const response = await login.json();
 				alert(response.message);
 			}
+			
 		} catch (err: any) {
 			alert("error, please try again!");
 			console.log("error while send api : " + err.message);
@@ -50,9 +52,17 @@ export default function Home() {
 			<Form onSubmit={login}>
 				<Form.Group className="mb-3">
 					<Form.Label>ID</Form.Label>
-					<Form.Control type="text" placeholder="please insert your ID" />
+					<Form.Control
+						type="text"
+						placeholder="please insert your ID"
+						onChange={(e) => {
+							setId(e.target.value);
+						}}
+					/>
 				</Form.Group>
-				<Button variant="primary">Login</Button>
+				<Button type="submit" variant="primary">
+					Login
+				</Button>
 			</Form>
 		</Container>
 	);

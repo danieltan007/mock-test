@@ -9,16 +9,16 @@ const login = async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
 		const cekUser = users.findOne({ where: { id: id } });
 		if (!cekUser) {
-			return res.status(404).send({
+			return res.status(404).json({
 				message: "wrong id, please try again!",
 			});
 		}
 
-		return res.status(200).send({
+		return res.status(200).json({
 			message: "succesfully login!",
 		});
 	} catch (err: any) {
-		return res.status(500).send({
+		return res.status(500).json({
 			message: "error while login : " + err.message,
 		});
 	}

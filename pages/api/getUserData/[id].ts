@@ -13,7 +13,7 @@ const getUserData = async (req: NextApiRequest, res: NextApiResponse) => {
 	const { users, todos } = initModels(sequelize);
 	const getUser = await users.findOne({ where: { id: id } });
 	if (!getUser) {
-		return res.status(404).send({
+		return res.status(404).json({
 			message: "user not found!",
 		});
 	}
@@ -25,7 +25,7 @@ const getUserData = async (req: NextApiRequest, res: NextApiResponse) => {
 	});
 
 	if (!getData) {
-		return res.status(404).send({
+		return res.status(404).json({
 			message: "no todos",
 		});
 	}

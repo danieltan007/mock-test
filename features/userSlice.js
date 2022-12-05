@@ -44,5 +44,5 @@ const userSlice = createSlice({
 });
 
 export const listData = (state) => state.data;
-export const { logout, login } = userSlice.actions;
+export const { logout, login, getData } = userSlice.actions;
 export default userSlice.reducer;
