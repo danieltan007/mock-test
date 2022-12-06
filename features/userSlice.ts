@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import userReducer from "@features/userSlice";
 
-export const cekUser = createAsyncThunk("user/getData", async () => {
+export const fetchUserTodo = createAsyncThunk("user/getData", async () => {
 	const token = localStorage.getItem("login");
-	return await fetch(`ttp://localhost:3000/getUserData/${token}`);
+	return await fetch(`http://localhost:3000/getUserData/${token}`);
 });
 
 interface userState {
@@ -28,21 +28,14 @@ const userSlice = createSlice({
 		logout: (state) => {
 			state.isLogin = false;
 		},
-		getData: (state, action: PayloadAction<any>) => {
-			state.data = action.payload;
-		},
 	},
 	extraReducers: (builder) => {
 		builder
-			.addCase(cekUser.pending, (state, action) => {
+			.addCase(fetchUserTodo.pending, (state, action) => {
 				state.isLoading = true;
 				state.isLogin = false;
 			})
-			.addCase(cekUser.fulfilled, (state, action) => {
-				console.log(
-					"🚀 ~ file: userSlice.ts:41 ~ .addCase ~ action",
-					action.payload
-				);
+			.addCase(fetchUserTodo.fulfilled, (state, action) => {
 				state.isLoading = false;
 				if (action.payload.status === 200) {
 					state.data = action.payload;
@@ -50,13 +43,13 @@ const userSlice = createSlice({
 					state.data = "no data";
 				}
 			})
-			.addCase(cekUser.rejected, (state, action) => {
+			.addCase(fetchUserTodo.rejected, (state, action) => {
 				state.isLoading = true;
 				state.isLogin = false;
 			});
 	},
 });
 
-// export const listData = (state: any) => state.data;
-export const { logout, login, getData } = userSlice.actions;
+export const listData = (state: any) => state.data;
+export const { logout, login } = userSlice.actions;
 export default userSlice.reducer;

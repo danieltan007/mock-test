@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getData, login } from "@features/userSlice";
+import { fetchUserTodo } from "@features/userSlice";
 
 const useData = () => {
 	const dispatch = useDispatch();
@@ -10,8 +10,7 @@ const useData = () => {
 
 	useEffect(() => {
 		if (isUser.isLoading === true) {
-			dispatch(getData());
-			console.log("🚀 ~ file: useData.js:14 ~ useEffect ~ isUser", isUser);
+			dispatch(fetchUserTodo());
 		}
 	}, [isUser]);
 
