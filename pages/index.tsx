@@ -1,4 +1,4 @@
-import { login } from "@features/userSlice";
+import { login, logout } from "@features/userSlice";
 import useData from "@features/useData";
 import { useAppSelector, useAppDispatch } from "../hooks";
 
@@ -10,24 +10,24 @@ import Button from "react-bootstrap/Button";
 
 const Home = () => {
 	const dispatch = useAppDispatch();
-	const [id, setId] = useState({});
+	const [id, setId] = useState("");
 	const router = useRouter();
 
-	const login = async (e: any) => {
+	const loginUser = async (e: any) => {
 		e.preventDefault();
 		try {
-			const login = await fetch("http://localhost:3000/api/login", {
+			const cekUser = await fetch("http://localhost:3000/api/login", {
 				method: "post",
 				body: JSON.stringify(id),
 				redirect: "follow",
 			});
 
-			if (login.status === 200) {
+			if (cekUser.status === 200) {
+				dispatch(login());
 				localStorage.setItem("login", id);
-				dispatch(login);
 				router.push("/todo");
 			} else {
-				const response = await login.json();
+				const response = await cekUser.json();
 				alert(response.message);
 			}
 		} catch (err: any) {
@@ -44,7 +44,7 @@ const Home = () => {
 			</Head>
 
 			<h1 style={{ textAlign: "center" }}>Welcome, please login</h1>
-			<Form onSubmit={login}>
+			<Form onSubmit={loginUser}>
 				<Form.Group className="mb-3">
 					<Form.Label>ID</Form.Label>
 					<Form.Control
@@ -54,7 +54,8 @@ const Home = () => {
 						minLength={4}
 						maxLength={4}
 						onChange={(e) => {
-							setId({ ...id, id: e.target.value });
+							// setId({ ...id, id: e.target.value });
+							setId(e.target.value);
 						}}
 					/>
 				</Form.Group>

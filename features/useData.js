@@ -5,12 +5,12 @@ import { getData, login } from "@features/userSlice";
 const useData = () => {
 	const dispatch = useDispatch();
 	const isUser = useSelector((state) => {
-		return state.user;
+		return state;
 	});
 
 	useEffect(() => {
 		if (isUser.isLoading === true) {
-			dispatch(login());
+			dispatch(getData());
 			console.log("🚀 ~ file: useData.js:14 ~ useEffect ~ isUser", isUser);
 		}
 	}, [isUser]);

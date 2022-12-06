@@ -8,8 +8,7 @@ const login = async (req: NextApiRequest, res: NextApiResponse) => {
 
 	if (method === "POST") {
 		try {
-			const { id } = req.body;
-			console.log("🚀 ~ file: login.ts:12 ~ login ~ id", req.body);
+			const id = JSON.parse(req.body);
 
 			const cekUser = users.findOne({ where: { id: id } });
 
@@ -17,11 +16,11 @@ const login = async (req: NextApiRequest, res: NextApiResponse) => {
 				return res.status(404).json({
 					message: "wrong id, please try again!",
 				});
+			} else {
+				return res.status(200).json({
+					message: "succesfully login!",
+				});
 			}
-
-			return res.status(200).json({
-				message: "succesfully login!",
-			});
 		} catch (err: any) {
 			return res.status(500).json({
 				message: "error while login : " + err.message,
