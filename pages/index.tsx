@@ -2,20 +2,20 @@ import Head from "next/head";
 import { Container, Form } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
 
 import { login, listData } from "@features/userSlice";
 import useData from "@features/useData";
+import { useAppSelector, useAppDispatch } from "../hooks";
 
 export default function Home() {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const [id, setId] = useState("");
 	const router = useRouter();
 
 	// const isUser = useData();
-	const isUser = useSelector(listData);
-	console.log("🚀 ~ file: index.tsx:17 ~ Home ~ isUser", isUser);
+	const isUser = useAppSelector(listData);
+	// console.log("🚀 ~ file: index.tsx:17 ~ Home ~ isUser", isUser);
 
 	const login = async (e: any) => {
 		e.preventDefault();
@@ -34,7 +34,6 @@ export default function Home() {
 				const response = await login.json();
 				alert(response.message);
 			}
-			
 		} catch (err: any) {
 			alert("error, please try again!");
 			console.log("error while send api : " + err.message);
@@ -55,6 +54,9 @@ export default function Home() {
 					<Form.Control
 						type="text"
 						placeholder="please insert your ID"
+						required
+						minLength={4}
+						maxLength={4}
 						onChange={(e) => {
 							setId(e.target.value);
 						}}
