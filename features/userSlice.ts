@@ -36,9 +36,13 @@ const userSlice = createSlice({
 		builder
 			.addCase(cekUser.pending, (state, action) => {
 				state.isLoading = true;
+				state.isLogin = false;
 			})
 			.addCase(cekUser.fulfilled, (state, action) => {
-				console.log("🚀 ~ file: userSlice.ts:41 ~ .addCase ~ action", action);
+				console.log(
+					"🚀 ~ file: userSlice.ts:41 ~ .addCase ~ action",
+					action.payload
+				);
 				state.isLoading = false;
 				if (action.payload.status === 200) {
 					state.data = action.payload;
@@ -48,6 +52,7 @@ const userSlice = createSlice({
 			})
 			.addCase(cekUser.rejected, (state, action) => {
 				state.isLoading = true;
+				state.isLogin = false;
 			});
 	},
 });

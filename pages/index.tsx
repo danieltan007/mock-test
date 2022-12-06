@@ -1,21 +1,17 @@
+import { login } from "@features/userSlice";
+import useData from "@features/useData";
+import { useAppSelector, useAppDispatch } from "../hooks";
+
 import Head from "next/head";
 import { Container, Form } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Button from "react-bootstrap/Button";
 
-import { login, listData } from "@features/userSlice";
-import useData from "@features/useData";
-import { useAppSelector, useAppDispatch } from "../hooks";
-
-export default function Home() {
+const Home = () => {
 	const dispatch = useAppDispatch();
-	const [id, setId] = useState("");
+	const [id, setId] = useState({});
 	const router = useRouter();
-
-	// const isUser = useData();
-	const isUser = useAppSelector(listData);
-	// console.log("🚀 ~ file: index.tsx:17 ~ Home ~ isUser", isUser);
 
 	const login = async (e: any) => {
 		e.preventDefault();
@@ -28,7 +24,7 @@ export default function Home() {
 
 			if (login.status === 200) {
 				localStorage.setItem("login", id);
-				dispatch(login());
+				dispatch(login);
 				router.push("/todo");
 			} else {
 				const response = await login.json();
@@ -52,13 +48,13 @@ export default function Home() {
 				<Form.Group className="mb-3">
 					<Form.Label>ID</Form.Label>
 					<Form.Control
-						type="text"
+						type="number"
 						placeholder="please insert your ID"
 						required
 						minLength={4}
 						maxLength={4}
 						onChange={(e) => {
-							setId(e.target.value);
+							setId({ ...id, id: e.target.value });
 						}}
 					/>
 				</Form.Group>
@@ -68,4 +64,6 @@ export default function Home() {
 			</Form>
 		</Container>
 	);
-}
+};
+
+export default Home;
