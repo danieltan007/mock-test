@@ -1,17 +1,19 @@
+import useData from "@features/useData";
 import { useState, useCallback } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useAppSelector } from "../hooks";
 
 const AddTodo = ({ setIsFetching }) => {
-	const [todos, setTodos] = useState({});
+	const [todos, setTodos] = useState();
+	const cekData = useData();
 
 	const tambahTodo = async (e) => {
 		e.preventDefault();
 		try {
-			const login = localStorage.getItem("login");
-
 			const kirimData = await fetch("http://localhost:3000/api/todo/todos", {
 				method: "POST",
-				body: JSON.stringify(todos, login),
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ todo: todos, id: cekData.user.id }),
 			});
 
 			console.log("todos : ", todos);
@@ -42,7 +44,7 @@ const AddTodo = ({ setIsFetching }) => {
 						minLength={3}
 						placeholder={"input your todo"}
 						onChange={(e) => {
-							setTodos({ ...todos, todo: e.target.value });
+							setTodos(e.target.value);
 						}}
 					/>
 				</Form.Group>

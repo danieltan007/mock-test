@@ -3,27 +3,30 @@ import userReducer from "@features/userSlice";
 
 export const fetchUserTodo = createAsyncThunk("user/getData", async () => {
 	const token = localStorage.getItem("login");
-	return await fetch(`http://localhost:3000/getUserData/${token}`);
+	return await fetch(`http://localhost:3000/api/getUserData/${token}`);
 });
 
 interface userState {
 	data: any;
 	isLoading: boolean;
 	isLogin: boolean;
+	id: string | null;
 }
 
 const initialState: userState = {
 	data: [],
 	isLoading: true,
 	isLogin: false,
+	id: "",
 };
 
 const userSlice = createSlice({
 	name: "userData",
 	initialState,
 	reducers: {
-		login: (state) => {
+		login: (state, action) => {
 			state.isLogin = true;
+			state.id = action.payload;
 		},
 		logout: (state) => {
 			state.isLogin = false;
@@ -36,6 +39,10 @@ const userSlice = createSlice({
 				state.isLogin = false;
 			})
 			.addCase(fetchUserTodo.fulfilled, (state, action) => {
+				console.log(
+					"🚀 ~ file: userSlice.ts:42 ~ .addCase ~ action",
+					action.payload
+				);
 				state.isLoading = false;
 				if (action.payload.status === 200) {
 					state.data = action.payload;

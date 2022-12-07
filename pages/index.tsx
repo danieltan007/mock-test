@@ -23,7 +23,8 @@ const Home = () => {
 			});
 
 			if (cekUser.status === 200) {
-				dispatch(login());
+				dispatch(login(id));
+				alert("berhasil login!");
 				localStorage.setItem("login", id);
 				router.push("/todo");
 			} else {

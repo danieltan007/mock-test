@@ -5,7 +5,7 @@ import { fetchUserTodo } from "@features/userSlice";
 const useData = () => {
 	const dispatch = useDispatch();
 	const isUser = useSelector((state) => {
-		return state;
+		return state.user;
 	});
 
 	useEffect(() => {
