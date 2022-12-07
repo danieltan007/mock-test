@@ -5,11 +5,12 @@ import useData from "@features/useData";
 const ListData = () => {
 	const dispatch = useAppDispatch();
 	const userData = useData();
+	let no = 1;
 	return (
 		<>
 			<h2 style={{ textAlign: "center" }}>Todo Lists</h2>
 			<br />
-			<Table>
+			<Table bordered striped>
 				<thead>
 					<tr>
 						<th>No</th>
@@ -19,9 +20,16 @@ const ListData = () => {
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td></td>
-					</tr>
+					{userData.map((data) => {
+						return (
+							<tr key={data.id}>
+								<td>{no}</td>
+								<td>{data.todo}</td>
+								<td>{}</td>
+								<td>{no}</td>
+							</tr>
+						);
+					})}
 				</tbody>
 			</Table>
 		</>

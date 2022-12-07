@@ -30,7 +30,7 @@ const Home = () => {
 				const response = await cekUser.json();
 				alert(response.message);
 			}
-		} catch (err: any) {
+		} catch (err) {
 			alert("error, please try again!");
 			console.log("error while send api : " + err.message);
 		}

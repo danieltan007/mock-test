@@ -1,15 +1,35 @@
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { login, logout } from "@features/userSlice";
+import { login, logout, fetchUserTodo } from "@features/userSlice";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import Head from "next/head";
 
 import ListData from "@components/ListData";
 import Button from "react-bootstrap/Button";
+import { useCallback, useState } from 'react';
+import useData from "@features/useData";
 
 const Todos = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();
+	const [todos, setTodos] = useState("");
+	const [refresh, setRefresh] = useState(false);
+
+	useCallback(() => {
+		
+	}, [refresh])
+
+	const tambahTodo = async () => {
+		const kirimData = await fetch("http://localhost:3000/todo/todos", {
+			method: "POST",
+			body: JSON.stringify(todos),
+		});
+
+		if(kirimData.status === 200) {
+			
+		}
+	}
+
 	const logout = (e: any) => {
 		e.preventDefault();
 		localStorage.removeItem("id");
@@ -36,6 +56,7 @@ const Todos = () => {
 								maxLength={50}
 								minLength={3}
 								placeholder={"input your todo"}
+								onChange={(e)=> {setTodos(e.target.value)}}
 							/>
 						</Form.Group>
 						<br />
