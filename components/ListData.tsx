@@ -2,9 +2,16 @@ import { Table } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import useData from "@features/useData";
 
-const ListData = () => {
+const ListData = ({
+	isFetching,
+	setIsFetching,
+}: {
+	isFetching: boolean;
+	setIsFetching: boolean;
+}) => {
 	const dispatch = useAppDispatch();
 	const userData = useData();
+	console.log("🚀 ~ file: listData.tsx:14 ~ userData", userData);
 	let no = 1;
 	return (
 		<>
@@ -20,7 +27,7 @@ const ListData = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{userData.map((data) => {
+					{/* {userData.map((data) => {
 						return (
 							<tr key={data.id}>
 								<td>{no}</td>
@@ -29,7 +36,7 @@ const ListData = () => {
 								<td>{no}</td>
 							</tr>
 						);
-					})}
+					})} */}
 				</tbody>
 			</Table>
 		</>

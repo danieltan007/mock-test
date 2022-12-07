@@ -6,29 +6,14 @@ import Head from "next/head";
 
 import ListData from "@components/ListData";
 import Button from "react-bootstrap/Button";
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from "react";
 import useData from "@features/useData";
+import AddTodo from "@components/AddTodo";
 
 const Todos = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();
-	const [todos, setTodos] = useState("");
-	const [refresh, setRefresh] = useState(false);
-
-	useCallback(() => {
-		
-	}, [refresh])
-
-	const tambahTodo = async () => {
-		const kirimData = await fetch("http://localhost:3000/todo/todos", {
-			method: "POST",
-			body: JSON.stringify(todos),
-		});
-
-		if(kirimData.status === 200) {
-			
-		}
-	}
+	const [isFetching, setIsFetching] = useState(false);
 
 	const logout = (e: any) => {
 		e.preventDefault();
@@ -46,28 +31,11 @@ const Todos = () => {
 			</Head>
 			<Row md={2} xs={1}>
 				<Col>
-					<h2 style={{ textAlign: "center" }}>Add Todo</h2>
-					<Form>
-						<Form.Group>
-							<Form.Label>Todo</Form.Label>
-							<Form.Control
-								type="text"
-								required
-								maxLength={50}
-								minLength={3}
-								placeholder={"input your todo"}
-								onChange={(e)=> {setTodos(e.target.value)}}
-							/>
-						</Form.Group>
-						<br />
-						<Button variant="success" type="submit">
-							Add Todo
-						</Button>
-					</Form>
+					<AddTodo setIsFetching={setIsFetching} />
 				</Col>
 				<Col>
 					<Container>
-						<ListData />
+						<ListData isFetching={isFetching} setIsFetching={setIsFetching} />
 					</Container>
 				</Col>
 			</Row>

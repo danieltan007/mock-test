@@ -13,7 +13,7 @@ interface userState {
 }
 
 const initialState: userState = {
-	data: null,
+	data: [],
 	isLoading: true,
 	isLogin: false,
 };
