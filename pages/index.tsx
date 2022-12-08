@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { login, logout } from "@features/userSlice";
 import useData from "@features/useData";
 import { useAppSelector, useAppDispatch } from "../hooks";
@@ -13,7 +14,7 @@ const Home = () => {
 	const [id, setId] = useState("");
 	const router = useRouter();
 
-	const loginUser = async (e: any) => {
+	const loginUser = async (e) => {
 		e.preventDefault();
 		try {
 			const cekUser = await fetch("http://localhost:3000/api/login", {
@@ -33,7 +34,7 @@ const Home = () => {
 			}
 		} catch (err) {
 			alert("error, please try again!");
-			console.log("error while send api : " + err.message);
+			console.log(`error while send api : ${err.message}`);
 		}
 	};
 	return (

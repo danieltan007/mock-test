@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as Sequelize from "sequelize";
 import { DataTypes, Model, Optional } from "sequelize";
 import type { users, usersId } from "./users";

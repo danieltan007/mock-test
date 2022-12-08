@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { NextApiRequest, NextApiResponse } from "next";
 import { initModels, users, usersAttributes } from "@db/models/init-models";
 import sequelize from "@db/models/connect";
@@ -27,7 +28,7 @@ const todos = async (req: NextApiRequest, res: NextApiResponse) => {
 				}
 			} catch (err) {
 				res.status(500).json({
-					message: "Error while add todos : " + err.message,
+					message: `Error while add todos : ${err.message}`,
 				});
 			}
 		case "PUT":
@@ -39,7 +40,7 @@ const todos = async (req: NextApiRequest, res: NextApiResponse) => {
 				});
 			} catch (err) {
 				res.status(500).json({
-					message: "data failed to update : " + err.message,
+					message: `Error while update todos : ${err.message}`,
 				});
 			}
 		case "DELETE":
@@ -52,7 +53,7 @@ const todos = async (req: NextApiRequest, res: NextApiResponse) => {
 				});
 			} catch (err) {
 				res.status(500).json({
-					message: "data failed to delete : " + err.message,
+					message: `Error while delete todos : ${err.message}`,
 				});
 			}
 		case "GET":

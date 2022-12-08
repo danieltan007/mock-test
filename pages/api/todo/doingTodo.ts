@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { NextApiRequest, NextApiResponse } from "next";
 import { initModels, users, usersAttributes } from "@db/models/init-models";
 import sequelize from "@db/models/connect";
@@ -23,7 +24,7 @@ const doingTodo = async (req: NextApiRequest, res: NextApiResponse) => {
 			});
 		} catch (err) {
 			res.status(500).json({
-				message: "error doing todo : " + err.message,
+				message: `error doing todo : ${err.message}`,
 			});
 		}
 	} else {

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import userReducer from "@features/userSlice";
 
@@ -9,7 +10,7 @@ export const fetchUserTodo = createAsyncThunk("user/getData", async () => {
 		});
 		return await data.json();
 	} catch (err) {
-		console.log("error while fetching : ", err.message);
+		console.log(`error while fetching : ${err.message}`);
 	}
 });
 

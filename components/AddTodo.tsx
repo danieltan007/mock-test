@@ -1,3 +1,4 @@
+// @ts-nocheck
 import useData from "@features/useData";
 import { fetchUserTodo } from "@features/userSlice";
 import { useState } from "react";

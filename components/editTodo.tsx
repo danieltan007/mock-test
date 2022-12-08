@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Form, Modal } from "react-bootstrap";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";

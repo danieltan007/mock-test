@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { NextApiRequest, NextApiResponse } from "next";
 import { initModels, users, usersAttributes } from "@db/models/init-models";
 import sequelize from "@db/models/connect";
@@ -21,9 +22,9 @@ const login = async (req: NextApiRequest, res: NextApiResponse) => {
 					message: "succesfully login!",
 				});
 			}
-		} catch (err: any) {
+		} catch (err) {
 			return res.status(500).json({
-				message: "error while login : " + err.message,
+				message: `error while login : ${err.message}`,
 			});
 		}
 	} else {

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Table } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import useData from "@features/useData";
