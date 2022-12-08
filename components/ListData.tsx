@@ -15,7 +15,7 @@ const ListData = () => {
 
 	const [todoName, setTodoName] = useState("");
 
-	const doingTodo = async (id) => {
+	const doingTodo = async (id: string | number) => {
 		try {
 			const res = await fetch(
 				`${process.env.NEXT_PUBLIC_SERVER}/todo/doingTodo`,
@@ -37,7 +37,7 @@ const ListData = () => {
 		}
 	};
 
-	const deleteTodo = async (id) => {
+	const deleteTodo = async (id: string | number) => {
 		try {
 			const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/todo/todos`, {
 				method: "DELETE",
@@ -78,17 +78,7 @@ const ListData = () => {
 						return (
 							<tr key={data.id}>
 								<td>{no}</td>
-								<td>
-									<input
-										type="text"
-										value={data.name}
-										min={3}
-										required
-										onChange={(e) => {
-											setTodoName(e.target.value);
-										}}
-									/>
-								</td>
+								<td>{data.name}</td>
 								<td>{data.status}</td>
 								<td>
 									<EditTodo todoId={data.id} todo={data.name} />

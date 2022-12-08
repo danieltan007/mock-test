@@ -33,8 +33,8 @@ const todos = async (req: NextApiRequest, res: NextApiResponse) => {
 		case "PUT":
 			try {
 				const { todo, todoId } = JSON.parse(req.body);
-				todos.update({ name: todo }, { where: { id: todoId } });
-				res.status(200).json({
+				await todos.update({ name: todo }, { where: { id: todoId } });
+				return res.status(200).json({
 					message: "data succesfully updated",
 				});
 			} catch (err) {

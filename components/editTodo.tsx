@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import { useAppDispatch } from "../hooks";
 import { fetchUserTodo } from "@features/userSlice";
 
-const EditTodo = (todoId, todos) => {
+const EditTodo = ({ todoId, todos }) => {
 	const [show, setShow] = useState(false);
 	const [todo, setTodo] = useState("");
 	const dispatch = useAppDispatch();
@@ -49,7 +49,7 @@ const EditTodo = (todoId, todos) => {
 								placeholder="insert new todo"
 								defaultValue={todos}
 								required
-								min={5}
+								min={3}
 								onChange={(e) => {
 									setTodo(e.target.value);
 								}}
