@@ -13,12 +13,11 @@ import AddTodo from "@components/AddTodo";
 const Todos = () => {
 	const dispatch = useDispatch();
 	const router = useRouter();
-	const [isFetching, setIsFetching] = useState(false);
 
 	const logout = (e: any) => {
 		e.preventDefault();
-		localStorage.removeItem("id");
 		dispatch(logout());
+		localStorage.removeItem("id");
 		router.push("/");
 	};
 
@@ -31,11 +30,11 @@ const Todos = () => {
 			</Head>
 			<Row md={2} xs={1}>
 				<Col>
-					<AddTodo setIsFetching={setIsFetching} />
+					<AddTodo />
 				</Col>
 				<Col>
 					<Container>
-						<ListData isFetching={isFetching} setIsFetching={setIsFetching} />
+						<ListData />
 					</Container>
 				</Col>
 			</Row>

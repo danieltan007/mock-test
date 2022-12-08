@@ -55,7 +55,6 @@ const Home = () => {
 						minLength={4}
 						maxLength={4}
 						onChange={(e) => {
-							// setId({ ...id, id: e.target.value });
 							setId(e.target.value);
 						}}
 					/>

@@ -1,28 +1,33 @@
 import useData from "@features/useData";
-import { useState, useCallback } from "react";
+import { fetchUserTodo } from "@features/userSlice";
+import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useAppSelector } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
 
-const AddTodo = ({ setIsFetching }) => {
+const AddTodo = () => {
 	const [todos, setTodos] = useState();
-	const cekData = useData();
+	const cekData = useAppSelector((state) => {
+		return state.user;
+	});
+	// const cekData = useData();
+	const dispatch = useAppDispatch();
 
 	const tambahTodo = async (e) => {
 		e.preventDefault();
 		try {
-			const kirimData = await fetch("http://localhost:3000/api/todo/todos", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ todo: todos, id: cekData.user.id }),
-			});
-
-			console.log("todos : ", todos);
+			const kirimData = await fetch(
+				`${process.env.NEXT_PUBLIC_SERVER}/todo/todos`,
+				{
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ todo: todos, id: cekData.id }),
+				}
+			);
 
 			if (kirimData.status === 200) {
-				setIsFetching(true);
 				alert("Berhasil tambah todo!");
+				dispatch(fetchUserTodo());
 			} else {
-				setIsFetching(false);
 				alert("Gagal tambah todo, silahkan coba lagi!");
 			}
 		} catch (err) {

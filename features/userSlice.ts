@@ -3,7 +3,14 @@ import userReducer from "@features/userSlice";
 
 export const fetchUserTodo = createAsyncThunk("user/getData", async () => {
 	const token = localStorage.getItem("login");
-	return await fetch(`http://localhost:3000/api/getUserData/${token}`);
+	try {
+		const data = await fetch(`http://localhost:3000/api/getUserData/${token}`, {
+			method: "GET",
+		});
+		return await data.json();
+	} catch (err) {
+		console.log("error while fetching : ", err.message);
+	}
 });
 
 interface userState {
@@ -39,16 +46,9 @@ const userSlice = createSlice({
 				state.isLogin = false;
 			})
 			.addCase(fetchUserTodo.fulfilled, (state, action) => {
-				console.log(
-					"🚀 ~ file: userSlice.ts:42 ~ .addCase ~ action",
-					action.payload
-				);
 				state.isLoading = false;
-				if (action.payload.status === 200) {
-					state.data = action.payload;
-				} else if (action.payload.status === 404) {
-					state.data = "no data";
-				}
+				state.data = action.payload?.data[0].todos;
+				state.id = action.payload?.data[0].id;
 			})
 			.addCase(fetchUserTodo.rejected, (state, action) => {
 				state.isLoading = true;

@@ -12,16 +12,23 @@ const getUserData = async (req: NextApiRequest, res: NextApiResponse) => {
 	const id = req.query.id;
 	const { users, todos } = initModels(sequelize);
 	const getUser = await users.findOne({ where: { id: id } });
+
 	if (!getUser) {
 		return res.status(404).json({
 			message: "user not found!",
 		});
 	}
 
-	const getData = await todos.findAll({
+	const getData = await users.findAll({
 		where: {
-			user_id: id,
+			id: id,
 		},
+		include: [
+			{
+				model: todos,
+				as: "todos",
+			},
+		],
 	});
 
 	if (!getData) {

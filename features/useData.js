@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserTodo } from "@features/userSlice";
 
@@ -12,7 +12,8 @@ const useData = () => {
 		if (isUser.isLoading === true) {
 			dispatch(fetchUserTodo());
 		}
-	}, [isUser]);
+	}, [dispatch, isUser]);
+	console.log("🚀 ~ file: useData.js:16 ~ useData ~ isUser", isUser);
 
 	return isUser;
 };
