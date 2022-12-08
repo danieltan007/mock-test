@@ -5,7 +5,7 @@ import { Button, Form } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../hooks";
 
 const AddTodo = () => {
-	const [todos, setTodos] = useState();
+	const [todos, setTodos] = useState("");
 	const cekData = useAppSelector((state) => {
 		return state.user;
 	});

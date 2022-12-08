@@ -45,7 +45,8 @@ const todos = async (req: NextApiRequest, res: NextApiResponse) => {
 		case "DELETE":
 			try {
 				const { todoId } = JSON.parse(req.body);
-				todos.destroy({ where: { id: todoId } });
+
+				await todos.destroy({ where: { id: todoId } });
 				res.status(200).json({
 					message: "data succesfully deleted",
 				});

@@ -4,31 +4,16 @@ import useData from "@features/useData";
 import Button from "react-bootstrap/Button";
 import { useCallback, useState } from "react";
 import { fetchUserTodo, login } from "@features/userSlice";
+import EditTodo from "./editTodo";
 
 const ListData = () => {
 	const dispatch = useAppDispatch();
-	const userData = useData();
+	const getData = useData();
+	const userData = useAppSelector((state) => {
+		return state.user;
+	});
 
 	const [todoName, setTodoName] = useState("");
-
-	const editTodo = async (id) => {
-		try {
-			const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/todo/todos`, {
-				method: "PUT",
-				body: JSON.stringify({ todo: todoName, todoId: id }),
-			});
-
-			if (res.status === 200) {
-				alert("berhasil update todo");
-				dispatch(fetchUserTodo());
-			} else {
-				alert("gagal update todo! silahkan coba lagi");
-			}
-		} catch (err) {
-			alert("gagal update todo! silahkan coba lagi");
-			console.log("error edit data : ", err.message);
-		}
-	};
 
 	const doingTodo = async (id) => {
 		try {
@@ -56,7 +41,7 @@ const ListData = () => {
 		try {
 			const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/todo/todos`, {
 				method: "DELETE",
-				body: JSON.stringify(id),
+				body: JSON.stringify({ todoId: id }),
 			});
 
 			if (res.status === 200) {
@@ -106,13 +91,7 @@ const ListData = () => {
 								</td>
 								<td>{data.status}</td>
 								<td>
-									<Button
-										variant="primary"
-										onClick={() => {
-											editTodo(data.id);
-										}}>
-										Edit
-									</Button>{" "}
+									<EditTodo todoId={data.id} todo={data.name} />
 									<br />
 									<br />
 									<Button

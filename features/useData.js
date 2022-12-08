@@ -12,8 +12,7 @@ const useData = () => {
 		if (isUser.isLoading === true) {
 			dispatch(fetchUserTodo());
 		}
-	}, [dispatch, isUser]);
-	console.log("🚀 ~ file: useData.js:16 ~ useData ~ isUser", isUser);
+	}, [dispatch, isUser.isLoading]);
 
 	return isUser;
 };

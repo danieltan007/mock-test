@@ -28,6 +28,6 @@
 		"db/models/connect.js",
 		"store.ts",
 		"pages/index.tsx"
-	],
+, "components/ListData.tsx", "components/editTodo.tsx", "components/AddTodo.tsx"	],
 	"exclude": ["node_modules"]
 }

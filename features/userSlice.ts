@@ -14,7 +14,7 @@ export const fetchUserTodo = createAsyncThunk("user/getData", async () => {
 });
 
 interface userState {
-	data: any;
+	data: Array<string>;
 	isLoading: boolean;
 	isLogin: boolean;
 	id: string | null;
@@ -57,6 +57,5 @@ const userSlice = createSlice({
 	},
 });
 
-export const listData = (state: any) => state.data;
 export const { logout, login } = userSlice.actions;
 export default userSlice.reducer;
