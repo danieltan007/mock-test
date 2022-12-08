@@ -1,5 +1,4 @@
 // @ts-nocheck
-import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { login, logout, fetchUserTodo } from "@features/userSlice";
 import { Col, Container, Form, Row } from "react-bootstrap";
@@ -7,18 +6,17 @@ import Head from "next/head";
 
 import ListData from "@components/ListData";
 import Button from "react-bootstrap/Button";
-import { useCallback, useState } from "react";
-import useData from "@features/useData";
 import AddTodo from "@components/AddTodo";
+import { useAppDispatch } from "hooks";
 
 const Todos = () => {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const router = useRouter();
 
-	const logout = (e) => {
-		e.preventDefault();
-		dispatch(logout());
+	const logout = () => {
+		// dispatch(logout());
 		localStorage.removeItem("id");
+		alert("berhasil logout!");
 		router.push("/");
 	};
 
@@ -39,6 +37,10 @@ const Todos = () => {
 					</Container>
 				</Col>
 			</Row>
+			<br />
+			<Button onClick={logout} variant="primary">
+				Logout
+			</Button>
 		</Container>
 	);
 };
