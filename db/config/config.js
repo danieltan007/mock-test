@@ -10,9 +10,9 @@ module.exports = {
 	},
 	production: {
 		username: process.env.DB_USERNAME_PROD || "postgres",
-		password: process.env.DB_PASSWORD_PROD || "123456",
-		database: process.env.DB_PROD || "database_production",
-		host: process.env.DB_HOST,
+		password: process.env.PGPASSWORD || "123456",
+		database: process.env.PGDATABASE || "database_production",
+		host: process.env.PGHOST,
 		dialect: "postgres",
 	},
 };

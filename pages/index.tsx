@@ -37,6 +37,8 @@ const Home = () => {
 			console.log(`error while send api : ${err.message}`);
 		}
 	};
+
+	console.log("node check = ", process.env.NODE_ENV);
 	return (
 		<Container>
 			<Head>
