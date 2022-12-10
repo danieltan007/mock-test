@@ -17,7 +17,7 @@ const Home = () => {
 	const loginUser = async (e) => {
 		e.preventDefault();
 		try {
-			const cekUser = await fetch("http://localhost:3000/api/login", {
+			const cekUser = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/login`, {
 				method: "post",
 				body: JSON.stringify(id),
 				redirect: "follow",

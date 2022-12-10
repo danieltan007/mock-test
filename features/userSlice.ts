@@ -5,9 +5,12 @@ import userReducer from "@features/userSlice";
 export const fetchUserTodo = createAsyncThunk("user/getData", async () => {
 	const token = localStorage.getItem("login");
 	try {
-		const data = await fetch(`http://localhost:3000/api/getUserData/${token}`, {
-			method: "GET",
-		});
+		const data = await fetch(
+			`${process.env.NEXT_PUBLIC_SERVER}/getUserData/${token}`,
+			{
+				method: "GET",
+			}
+		);
 		return await data.json();
 	} catch (err) {
 		console.log(`error while fetching : ${err.message}`);
